@@ -1,6 +1,9 @@
 from flask import Flask
 import requests
+from dotenv import load_dotenv
+import os
 
+load_dotenv() # Brings all environment variables from .env into os.environ
 app = Flask(__name__)
 
 # Hardcoded data to test API endpoints
