@@ -8,17 +8,6 @@ app = Flask(__name__)
 
 API_KEY = os.getenv('WEATHER_API')
 
-# Hardcoded data to test API endpoints
-local_weather = {
-    'florida' : {
-        'tampa' : {
-            'temperature' : 70,
-            'humidity' : '40%',
-            'cloud' : None
-        }
-    }
-}
-
 @app.route('/')
 def home():
     return '<h1>Let\'s find the weather! </h1>'
