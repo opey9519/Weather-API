@@ -6,6 +6,8 @@ import os
 load_dotenv() # Brings all environment variables from .env into os.environ
 app = Flask(__name__)
 
+API_KEY = os.getenv('WEATHER_API')
+
 # Hardcoded data to test API endpoints
 local_weather = {
     'florida' : {
@@ -22,12 +24,21 @@ def home():
     return '<h1>Let\'s find the weather! </h1>'
 
 @app.route('/weather')
-def get_weather():
-    tampa = local_weather.get('florida').get('tampa')
-    
-    tampa_weather = f'In tampa it is {tampa.get('temperature')} degrees fahrenheit, with {tampa.get('humidity')} humidity and {'some clouds' if tampa.get('cloud') else 'no clouds'}'
 
-    return tampa_weather
+# Get weather data for specified location
+@app.route('/weather/<location>', methods=['GET'])
+def get_weather(location):
+    URL = f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{location}?key={API_KEY}'
+
+    try:
+        response = requests.get(URL)
+        if response.status_code == 200:
+            data = response.json()
+            print()
+        return f'{data.get('days')[0].get('temp')}', 200
+    
+    except requests.exceptions.RequestException as e:
+        return f"Error: {e}", 500
 
 if __name__ == '__main__':
     app.run()
