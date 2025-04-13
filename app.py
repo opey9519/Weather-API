@@ -8,12 +8,9 @@ app = Flask(__name__)
 
 API_KEY = os.getenv('WEATHER_API')
 
-
-@app.route('/')
-def home():
-    return '<h1>Let\'s find the weather! </h1>'
-
 # Get weather data for specified location using query parameters
+
+
 @app.route('/weather/<location>', methods=['GET'])
 def get_weather(location):
 
@@ -25,10 +22,10 @@ def get_weather(location):
             data = response.json()
             return jsonify({'temp': data.get('days')[0].get('temp')}), 200
         else:
-            return jsonify({'error' : 'could not fetch data'}), response.status_code
+            return jsonify({'error': 'could not fetch data'}), response.status_code
 
     except requests.exceptions.RequestException as e:
-        return jsonify({'error' : f"Error: {e}"}), 500
+        return jsonify({'error': f"Error: {e}"}), 500
 
 
 if __name__ == '__main__':
