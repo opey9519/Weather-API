@@ -1,27 +1,22 @@
-console.log("hello, there");
 
-const API_KEY = '';
+document.getElementById("weatherform").addEventListener("submit", async function(e) {
+  e.preventDefault() // Prevent form from submitting
+  const city = document.getElementById("city").value;
 
-try {
-  async function getData({ location = "" }) {
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=${API_KEY}
-      `;
-    try {
-      const response = await fetch(url);
-      console.log("🚀 ~ getData ~ response:", response);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-  
-      const json = await response.json();
-      console.log("🚀 ~ getData ~ json:", json);
-    } catch (error) {
-      console.error(error.message);
-    } 
-  };
-  
-  getData({ location: 'tampa'});
-} catch (error) {
-  console.log("🚀 ~ error:", error)
-
-}
+  try {
+    const res = await fetch(`http://127.0.0.1:5000/weather/${city}`)
+    const data = await res.json()
+    const resultDiv = document.getElementById("result");
+    console.log(data)
+    if (data.temp) {
+      resultDiv.textContent = `The temperature in ${city} is ${data.temp}`
+    }
+    else {
+      resultDiv.textContent = `Error: ${data.error}`
+    }
+  }
+  catch (err) {
+    console.log(`Error: ${err}`)
+    document.getElementById("result").textContent = "Something went wrong"
+  }
+})
