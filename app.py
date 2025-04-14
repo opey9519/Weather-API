@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
-import requests
 from dotenv import load_dotenv
+from flask_cors import CORS
+import requests
 import os
+
 
 load_dotenv()  # Brings all environment variables from .env into os.environ
 app = Flask(__name__)
+CORS(app)
 
 API_KEY = os.getenv('WEATHER_API')
 

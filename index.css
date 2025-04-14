@@ -51,3 +51,7 @@ button:hover {
   background-color: #ffffff;
   color: #1d2d44;
 }
+
+#result {
+  padding-top: 3em;
+}

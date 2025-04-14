@@ -20,13 +20,14 @@
         <h2>What is the temperature in your city?</h2>
       </div>
       <div>
-        <form class="subcontainer">
+        <form id="weatherform" class="subcontainer">
           <div
             class="form-row"
             style="margin-left: 7.75em; padding-bottom: 0.5em"
           >
             <div class="col-7">
               <input
+                id="city"
                 type="text"
                 class="form-control"
                 placeholder="City"
@@ -35,9 +36,11 @@
               />
             </div>
           </div>
+
           <div>
             <button type="submit">Submit</button>
           </div>
+          <div id="result"></div>
         </form>
       </div>
     </div>
