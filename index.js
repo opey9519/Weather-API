@@ -7,7 +7,6 @@ document.getElementById("weatherform").addEventListener("submit", async function
     const res = await fetch(`http://127.0.0.1:5000/weather/${city}`)
     const data = await res.json()
     const resultDiv = document.getElementById("result");
-    console.log(data)
     if (data.temp) {
       resultDiv.textContent = `The temperature in ${city} is ${data.temp}`
     }
